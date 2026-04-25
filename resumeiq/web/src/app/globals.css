@@ -1,0 +1,138 @@
+@import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  /* ── Dark mode (default) ── */
+  :root,
+  .dark {
+    --background: #070B14;
+    --foreground: #F1F5F9;
+    --card: #0D1117;
+    --card-foreground: #F1F5F9;
+    --border: #1C2333;
+    --accent: #0EA5E9;
+    --accent-hover: #0284C7;
+    --accent-green: #10B981;
+    --accent-amber: #F59E0B;
+    --muted: #0D1117;
+    --muted-foreground: #64748B;
+    --primary: #0EA5E9;
+    --primary-foreground: #070B14;
+    --secondary: #1C2333;
+    --secondary-foreground: #94A3B8;
+    --destructive: #EF4444;
+    --destructive-foreground: #fff;
+    --warning: #F59E0B;
+    --ring: #0EA5E9;
+    --input: #1A1F35;
+    --radius: 0.75rem;
+    --popover: #0C0F1A;
+    --popover-foreground: #F1F5F9;
+    --violet-500: #0EA5E9;
+    --purple-500: #0EA5E9;
+  }
+
+  /* ── Light mode overrides ── */
+  .light {
+    --background: #F8FAFC;
+    --foreground: #0F172A;
+    --card: #FFFFFF;
+    --card-foreground: #0F172A;
+    --border: #E2E8F0;
+    --muted: #F1F5F9;
+    --muted-foreground: #64748B;
+    --primary: #0EA5E9;
+    --primary-foreground: #FFFFFF;
+    --secondary: #E2E8F0;
+    --secondary-foreground: #334155;
+    --destructive: #EF4444;
+    --destructive-foreground: #fff;
+    --ring: #0EA5E9;
+    --input: #E2E8F0;
+    --popover: #FFFFFF;
+    --popover-foreground: #0F172A;
+  }
+
+  * {
+    @apply border-border outline-none;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass card */
+  .glassmorphism {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+
+  /* Dark card — adapts in light mode */
+  .card-dark {
+    background-color: var(--card);
+    border-color: var(--border);
+    @apply border rounded-xl;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-[#0EA5E9] hover:bg-[#0284C7] text-white transition-all duration-200 font-semibold rounded-lg;
+  }
+
+  .btn-ghost {
+    @apply border border-[#0EA5E9] bg-transparent hover:bg-[#0EA5E9]/10 text-[#0EA5E9] transition-colors rounded-lg;
+  }
+
+  /* Input */
+  .input-dark {
+    background-color: var(--background);
+    border-color: var(--border);
+    color: var(--foreground);
+    @apply border rounded-lg focus:border-[#0EA5E9] focus:ring-1 focus:ring-[#0EA5E9]/30;
+  }
+
+  /* Glow accent */
+  .glow-blue {
+    box-shadow: 0 0 24px rgba(14, 165, 233, 0.25);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 24px rgba(16, 185, 129, 0.25);
+  }
+
+  /* Animations */
+  .fade-up {
+    animation: fadeUp 0.6s ease-out;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .dot-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
