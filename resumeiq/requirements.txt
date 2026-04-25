@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+pdfminer.six
+python-docx
+spacy
+google-genai
+pydantic>=2.0
+python-dotenv
+fastmcp
+firebase-admin
