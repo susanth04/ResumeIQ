@@ -44,7 +44,12 @@ def _load_nlp():
     """Lazy-load spaCy English model."""
     global _NLP
     if _NLP is None:
-        _NLP = spacy.load("en_core_web_sm")
+        try:
+            _NLP = spacy.load("en_core_web_sm")
+        except Exception:
+            # Vercel/serverless builds often don't include model packages.
+            # Fall back to a blank English pipeline so parsing still works.
+            _NLP = spacy.blank("en")
     return _NLP
 
 
