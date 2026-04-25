@@ -12,10 +12,19 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app =
-  getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const hasFirebaseConfig = Object.values(firebaseConfig).every(Boolean);
+const canInit =
+  hasFirebaseConfig &&
+  // Avoid crashing during build-time prerender when env isn't set.
+  (typeof window !== "undefined" || process.env.NODE_ENV === "production");
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+const app = canInit
+  ? getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0]
+  : null;
+
+export const auth = app ? getAuth(app) : (null as unknown as ReturnType<typeof getAuth>);
+export const db = app ? getFirestore(app) : (null as unknown as ReturnType<typeof getFirestore>);
+export const storage = app ? getStorage(app) : (null as unknown as ReturnType<typeof getStorage>);
 export const googleProvider = new GoogleAuthProvider();

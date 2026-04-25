@@ -229,11 +229,12 @@ export function ResumeGenerator({ analysis, targetRole }: ResumeGeneratorProps) 
                   <FileDown className="w-4 h-4 mr-2" />
                   Download .tex
                 </Button>
-                <Button asChild className="btn-ghost h-9 px-5 text-sm">
-                  <a href={overleafUrl} target="_blank" rel="noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Open in Overleaf
-                  </a>
+                <Button
+                  onClick={() => window.open(overleafUrl, "_blank", "noopener,noreferrer")}
+                  className="btn-ghost h-9 px-5 text-sm"
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Open in Overleaf
                 </Button>
                 <Button
                   onClick={() => setStatus("idle")}

@@ -1,10 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type LiquidButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type LiquidButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "onDrag" | "onDragStart" | "onDragEnd"
+> & {
   children: React.ReactNode;
 };
 
@@ -12,16 +14,16 @@ type LiquidButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export function LiquidButton({
   className,
   children,
+  type,
   ...props
 }: LiquidButtonProps) {
   return (
-    <motion.button
-      type="button"
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+    <button
+      type={type ?? "button"}
       className={cn(
         "group relative inline-flex items-center justify-center overflow-hidden rounded-xl px-8 py-3 font-semibold text-white shadow-lg transition",
         "bg-[#10B981] hover:bg-[#059669]",
+        "transform-gpu hover:scale-[1.02] active:scale-[0.98]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10B981] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0F]",
         className
       )}
@@ -36,7 +38,7 @@ export function LiquidButton({
         }}
       />
       <span className="relative z-10 flex items-center gap-2">{children}</span>
-    </motion.button>
+    </button>
   );
 }
 

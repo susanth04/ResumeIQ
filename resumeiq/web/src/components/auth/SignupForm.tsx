@@ -73,10 +73,12 @@ export function SignupForm() {
       });
 
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to create account";
       toast({
         title: "Error",
-        description: error.message || "Failed to create account",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -103,10 +105,12 @@ export function SignupForm() {
       });
 
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to sign up with Google";
       toast({
         title: "Error",
-        description: error.message || "Failed to sign up with Google",
+        description: message,
         variant: "destructive",
       });
     } finally {

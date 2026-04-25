@@ -22,8 +22,8 @@ interface HistoryCardProps {
     id: string;
     fileName: string;
     totalScore: number;
-    targetRole?: string;
-    createdAt: any;
+    targetRole?: string | null;
+    createdAt: Date | { toDate?: () => Date } | null;
   };
   onDelete?: () => void;
 }
@@ -42,7 +42,7 @@ export function HistoryCard({ analysis, onDelete }: HistoryCardProps) {
         description: "Analysis deleted",
       });
       onDelete?.();
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: "Failed to delete analysis",
@@ -59,8 +59,15 @@ export function HistoryCard({ analysis, onDelete }: HistoryCardProps) {
     return "bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/25";
   };
 
-  const createdAt = analysis.createdAt?.toDate?.()
-    ? formatDistanceToNow(analysis.createdAt.toDate(), { addSuffix: true })
+  const createdAtDate =
+    analysis.createdAt instanceof Date
+      ? analysis.createdAt
+      : analysis.createdAt?.toDate?.()
+        ? analysis.createdAt.toDate()
+        : null;
+
+  const createdAt = createdAtDate
+    ? formatDistanceToNow(createdAtDate, { addSuffix: true })
     : "Recently";
 
   return (

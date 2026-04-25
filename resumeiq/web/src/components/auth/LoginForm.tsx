@@ -34,10 +34,12 @@ export function LoginForm() {
         description: "Welcome back!",
       });
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to sign in";
       toast({
         title: "Error",
-        description: error.message || "Failed to sign in",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -55,10 +57,14 @@ export function LoginForm() {
         description: "Welcome back!",
       });
       router.push("/dashboard");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to sign in with Google";
       toast({
         title: "Error",
-        description: error.message || "Failed to sign in with Google",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -197,7 +203,7 @@ export function LoginForm() {
 
       {/* Sign up link */}
       <p className="mt-6 text-center text-gray-400">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link href="/auth/signup" className="text-[#10B981] hover:text-[#059669]">
           Sign up
         </Link>
